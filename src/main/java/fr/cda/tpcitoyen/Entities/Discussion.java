@@ -16,6 +16,9 @@ public class Discussion {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
+    @Column(name = "content")
+    private String content;
+
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id")
     private User user;
