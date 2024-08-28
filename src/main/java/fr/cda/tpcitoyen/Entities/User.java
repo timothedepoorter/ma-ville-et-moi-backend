@@ -33,10 +33,10 @@ public class User {
     @Column(name = "isResident")
     private boolean isResident;
 
-    @OneToMany(mappedBy = "discussion", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Discussion> discussions;
 
-    @OneToMany(mappedBy = "project", cascade = CascadeType.ALL)
-    private List<Project> project;
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<Project> projects;
 
 }

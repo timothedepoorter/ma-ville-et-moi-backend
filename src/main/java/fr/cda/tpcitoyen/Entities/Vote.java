@@ -26,5 +26,5 @@ public class Vote {
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "project_id")
-    private Project project;
+    private Project projects;
 }
