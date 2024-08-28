@@ -34,6 +34,9 @@ public class User {
     private boolean isResident;
 
     @OneToMany(mappedBy = "discussion", cascade = CascadeType.ALL)
-    private List<Discussion> Discussions;
+    private List<Discussion> discussions;
+
+    @OneToMany(mappedBy = "project", cascade = CascadeType.ALL)
+    private List<Project> project;
 
 }
