@@ -14,13 +14,13 @@ public class Discussion {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id_user;
+    private Integer id;
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id")
     private User user;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "id")
-    private project project;
+    @JoinColumn(name = "project_id")
+    private Project project;
 }
