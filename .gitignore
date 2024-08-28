@@ -33,5 +33,5 @@ build/
 .vscode/
 
 ### Config ###
-/docker-compose.yml
-/src/main/resources/application-local.yml
+docker-compose.yml
+src/main/resources/application-local.yml
