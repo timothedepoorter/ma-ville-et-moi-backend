@@ -1,5 +1,5 @@
 package fr.cda.tpcitoyen.Services;
 
-public interface userService {
+public interface UserService {
 
 }

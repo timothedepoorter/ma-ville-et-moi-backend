@@ -6,13 +6,13 @@ import lombok.*;
 import java.util.List;
 
 @Entity
-@Table(name = "User")
+@Table(name = "user")
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
 @ToString
-public class user {
+public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -34,6 +34,6 @@ public class user {
     private boolean isResident;
 
     @OneToMany(mappedBy = "discussion", cascade = CascadeType.ALL)
-    private List<discussion> discussions;
+    private List<Discussion> Discussions;
 
 }

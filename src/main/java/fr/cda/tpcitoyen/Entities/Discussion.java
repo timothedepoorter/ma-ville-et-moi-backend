@@ -4,13 +4,13 @@ import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
-@Table(name = "Discussion")
+@Table(name = "discussion")
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
 @ToString
-public class discussion {
+public class Discussion {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -18,7 +18,7 @@ public class discussion {
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id")
-    private user user;
+    private User user;
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "id")
