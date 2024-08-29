@@ -31,4 +31,15 @@ public class UserServiceImpl implements UserService {
     public User addUser(User user) {
         return userRepository.save(user);
     }
+
+    public User updateUser(User user, Integer id) {
+        this.getUser(id);
+        user.setId(id);
+        return userRepository.save(user);
+    }
+
+    public void deleteUser(Integer id) {
+        this.getUser(id);
+        userRepository.deleteById(id);
+    }
 }

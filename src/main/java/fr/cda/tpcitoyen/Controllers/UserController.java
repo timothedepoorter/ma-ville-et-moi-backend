@@ -7,6 +7,7 @@ import fr.cda.tpcitoyen.Services.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.service.annotation.DeleteExchange;
 
 import java.util.List;
 
@@ -32,5 +33,15 @@ public class UserController {
     @PostMapping()
     public User addUser(@RequestBody User user) {
         return userService.addUser(user);
+    }
+
+    @PutMapping("/{id}")
+    public User updateUser(@RequestBody User user, @PathVariable Integer id) {
+        return userService.updateUser(user, id);
+    }
+
+    @DeleteMapping("/{id}")
+    public void deleteUser(@PathVariable Integer id) {
+        userService.deleteUser(id);
     }
 }
