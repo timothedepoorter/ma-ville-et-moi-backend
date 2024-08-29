@@ -3,6 +3,8 @@ package fr.cda.tpcitoyen.Entities;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDateTime;
+
 @Entity
 @Table(name = "discussion")
 @AllArgsConstructor
@@ -18,6 +20,9 @@ public class Discussion {
 
     @Column(name = "content")
     private String content;
+
+    @Column(name = "date")
+    private LocalDateTime date;
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id")
