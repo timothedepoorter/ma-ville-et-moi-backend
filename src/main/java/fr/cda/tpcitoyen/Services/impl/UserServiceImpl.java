@@ -2,9 +2,11 @@ package fr.cda.tpcitoyen.Services.impl;
 
 import fr.cda.tpcitoyen.Entities.User;
 import fr.cda.tpcitoyen.Repositories.UserRepository;
+import fr.cda.tpcitoyen.Security.RoleType;
 import fr.cda.tpcitoyen.Services.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -14,6 +16,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     public List<User> getUsers() {
         return userRepository.findAll();
@@ -28,7 +31,13 @@ public class UserServiceImpl implements UserService {
         );
     }
 
-    public User addUser(User user) {
+    public User register(User user) {
+
+        String hashedPassword = bCryptPasswordEncoder.encode(user.getPassword());
+        user.setPassword(hashedPassword);
+
+        user.setRole(RoleType.USER);
+
         return userRepository.save(user);
     }
 

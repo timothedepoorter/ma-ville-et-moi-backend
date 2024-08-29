@@ -5,6 +5,7 @@ import fr.cda.tpcitoyen.DTO.Users.UserDto;
 import fr.cda.tpcitoyen.Entities.User;
 import fr.cda.tpcitoyen.Services.UserService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -15,6 +16,7 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/users")
+@Slf4j
 public class UserController {
     private final UserService userService;
     private final ObjectMapper objectMapper;
@@ -31,10 +33,10 @@ public class UserController {
         return objectMapper.convertValue(userService.getUser(id), UserDto.class);
     }
 
-    @PostMapping()
+    @PostMapping("/register")
     @ResponseStatus(HttpStatus.CREATED)
-    public User addUser(@RequestBody User user) {
-        return userService.addUser(user);
+    public User register(@RequestBody User user) {
+        return userService.register(user);
     }
 
     @PutMapping("/{id}")
