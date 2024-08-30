@@ -1,23 +1,31 @@
 package fr.cda.tpcitoyen.Controllers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import fr.cda.tpcitoyen.DTO.Users.AuthenticationDto;
 import fr.cda.tpcitoyen.DTO.Users.UserDto;
 import fr.cda.tpcitoyen.Entities.User;
+import fr.cda.tpcitoyen.Security.JwtService;
 import fr.cda.tpcitoyen.Services.UserService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
-import org.springframework.stereotype.Controller;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.service.annotation.DeleteExchange;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/users")
+@Slf4j
 public class UserController {
     private final UserService userService;
     private final ObjectMapper objectMapper;
+    private final AuthenticationManager authenticationManager;
+    private final JwtService jwtService;
 
     @GetMapping()
     public List<UserDto> getUsers() {
@@ -31,10 +39,10 @@ public class UserController {
         return objectMapper.convertValue(userService.getUser(id), UserDto.class);
     }
 
-    @PostMapping()
+    @PostMapping("register")
     @ResponseStatus(HttpStatus.CREATED)
-    public User addUser(@RequestBody User user) {
-        return userService.addUser(user);
+    public User register(@RequestBody User user) {
+        return userService.register(user);
     }
 
     @PutMapping("/{id}")
@@ -45,5 +53,18 @@ public class UserController {
     @DeleteMapping("/{id}")
     public void deleteUser(@PathVariable Integer id) {
         userService.deleteUser(id);
+    }
+
+    @PostMapping("login")
+    public Map<String, String> login(@RequestBody AuthenticationDto authenticationDto) {
+        final Authentication authenticate = authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(authenticationDto.getMail(), authenticationDto.getPassword())
+        );
+
+        if (authenticate.isAuthenticated()) {
+            return jwtService.generate(authenticationDto.getMail());
+        }
+
+        return null;
     }
 }
