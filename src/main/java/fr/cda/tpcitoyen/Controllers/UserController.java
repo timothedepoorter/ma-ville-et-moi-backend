@@ -6,9 +6,7 @@ import fr.cda.tpcitoyen.Entities.User;
 import fr.cda.tpcitoyen.Services.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.service.annotation.DeleteExchange;
 
 import java.util.List;
 

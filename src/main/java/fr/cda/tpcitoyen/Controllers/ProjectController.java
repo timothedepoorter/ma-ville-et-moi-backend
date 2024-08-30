@@ -1,33 +1,43 @@
 package fr.cda.tpcitoyen.Controllers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import fr.cda.tpcitoyen.DTO.Users.ProjectDto;
-import fr.cda.tpcitoyen.DTO.Users.ProjectDtoJointure;
+import fr.cda.tpcitoyen.DTO.Projects.ProjectDto;
+import fr.cda.tpcitoyen.DTO.Projects.ProjectDtoJointure;
 import fr.cda.tpcitoyen.Entities.Project;
 import fr.cda.tpcitoyen.Services.ProjectService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Controller
+@CrossOrigin(origins = "http://localhost:8080", allowedHeaders = "*")
+@RestController
 @RequiredArgsConstructor
-@RequestMapping("/project")
+@RequestMapping("/projects")
 public class ProjectController {
     private final ProjectService projectService;
     private final ObjectMapper objectMapper;
 
-    @GetMapping()
-    public List<ProjectDto> getProjects(){
-        return projectService.getProjects()
+    @GetMapping("/valid")
+    @CrossOrigin(origins = "*")
+    public List<ProjectDto> getProjectsValidated(){
+        return projectService.getProjectsValidated()
                 .stream()
                 .map(project -> objectMapper.convertValue(project, ProjectDto.class)
                 ).toList();
     }
 
-    @GetMapping("/id")
-    public ProjectDtoJointure getProjectById(@RequestParam Integer id){
+    @GetMapping("/admin")
+    @CrossOrigin(origins = "*")
+    public List<ProjectDto> getProjectsToValidate(){
+        return projectService.getProjectsToValidate()
+                .stream()
+                .map(project -> objectMapper.convertValue(project, ProjectDto.class)
+                ).toList();
+    }
+
+    @GetMapping("/{id}")
+    public ProjectDtoJointure getProjectById(@PathVariable Integer id){
         return objectMapper.convertValue(projectService.getProjectsById(id), ProjectDtoJointure.class);
     }
 

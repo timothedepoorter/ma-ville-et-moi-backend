@@ -1,5 +1,6 @@
-package fr.cda.tpcitoyen.DTO.Users;
+package fr.cda.tpcitoyen.DTO.Vote;
 
+import fr.cda.tpcitoyen.DTO.Users.UserDto;
 import lombok.Data;
 
 @Data
