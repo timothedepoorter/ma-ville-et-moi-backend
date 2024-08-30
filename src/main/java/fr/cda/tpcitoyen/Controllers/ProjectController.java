@@ -37,6 +37,7 @@ public class ProjectController {
     }
 
     @GetMapping("/{id}")
+    @CrossOrigin(origins = "*")
     public ProjectDtoJointure getProjectById(@PathVariable Integer id){
         return objectMapper.convertValue(projectService.getProjectsById(id), ProjectDtoJointure.class);
     }
