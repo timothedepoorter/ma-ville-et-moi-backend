@@ -1,0 +1,60 @@
+# Utiliser Docker comme environnement d'exécution
+image: docker:latest
+
+# Utiliser Docker-in-Docker (DinD) pour permettre la construction d'images Docker
+services:
+  - docker:dind
+
+stages:
+  - build
+  - test
+  - deploy
+
+# Variables globales (remplace les valeurs si nécessaire)
+variables:
+  DOCKER_DRIVER: overlay2
+  MYSQL_ROOT_PASSWORD: root
+  MYSQL_DATABASE: ma-ville-et-moi-database
+  MYSQL_USER: user
+  MYSQL_PASSWORD: root
+
+# Étape de build - Construction de l'image Docker de l'application Spring Boot
+build:
+  stage: build
+  script:
+    - echo "Building Docker image..."
+    - docker build -t myapp/spring-app:latest .
+  only:
+    - main  # S'exécute uniquement sur la branche main
+  tags:
+    - docker
+
+# Étape de test - Lancement des tests unitaires et d'intégration
+test:
+  stage: test
+  services:
+    - name: mysql:8.0
+      alias: mysql-db
+  variables:
+    SPRING_DATASOURCE_URL: jdbc:mysql://mysql-db:3306/ma-ville-et-moi-database?createDatabaseIfNotExist=true&allowPublicKeyRetrieval=true&useSSL=false
+    SPRING_DATASOURCE_USERNAME: user
+    SPRING_DATASOURCE_PASSWORD: root
+  script:
+    - echo "Running tests..."
+    - ./mvnw test  # Exécuter les tests Maven
+  tags:
+    - docker
+
+# Étape de déploiement - Déploiement de l'image Docker dans un registre ou sur un serveur
+deploy:
+  stage: deploy
+  script:
+    - echo "Deploying application..."
+    # Exemple de déploiement dans un registre Docker
+    - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" $CI_REGISTRY
+    - docker tag myapp/spring-app:latest $CI_REGISTRY/myapp/spring-app:latest
+    - docker push $CI_REGISTRY/myapp/spring-app:latest
+  only:
+    - main  # Déploiement uniquement sur la branche main
+  tags:
+    - docker
