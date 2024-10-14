@@ -1,0 +1,29 @@
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: mysql-db
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: ma-ville-et-moi-database
+      MYSQL_USER: user
+      MYSQL_PASSWORD: root
+    ports:
+      - "3307:3306"
+
+  app:
+    build: .
+    container_name: spring-app
+    ports:
+      - "8080:8080"  # Expose le port 8080 de l'application Spring Boot
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/ma-ville-et-moi-database?createDatabaseIfNotExist=true&allowPublicKeyRetrieval=true&useSSL=false
+      SPRING_DATASOURCE_USERNAME: user
+      SPRING_DATASOURCE_PASSWORD: root
+    depends_on:
+      - mysql  # Démarre d'abord MySQL
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
