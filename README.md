@@ -3,8 +3,8 @@
 - Langage - Java 🍵
 - Framework - Spring 🍃
 - BDD - mySql 🐬
-- Containerisation : Docker 🐋
-- CI : Github Actions 😼
+- Containerisation - Docker 🐋
+- CI - Github Actions 😼
 
 **Lancement de l'application :** 
 `docker-compose up --build`
