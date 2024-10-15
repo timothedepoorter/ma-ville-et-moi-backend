@@ -1,14 +1,13 @@
 package fr.cda.tpcitoyen.Controllers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import fr.cda.tpcitoyen.DTO.Users.VoteDto;
+import fr.cda.tpcitoyen.DTO.Vote.VoteDto;
 import fr.cda.tpcitoyen.Entities.Vote;
 import fr.cda.tpcitoyen.Services.VoteService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-@Controller
+@RestController
 @RequiredArgsConstructor
 @RequestMapping("/votes")
 public class VoteController {

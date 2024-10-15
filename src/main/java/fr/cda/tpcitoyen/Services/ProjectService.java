@@ -7,10 +7,17 @@ import java.util.List;
 public interface ProjectService {
 
     /**
-     * Afficher la liste des projets, sans ses joitures Votes et Discussions
+     * Afficher la liste des projets validés par l'admin, sans ses joitures Votes et Discussions
      * @return List Project
      */
-    List<Project> getProjects();
+    List<Project> getProjectsValidated();
+
+    /**
+     * Afficher la liste des projets à valider par l'admin, sans ses joitures Votes et Discussions
+     * Visible uniquement par le rôle ADMIN
+     * @return List Project
+     */
+    List<Project> getProjectsToValidate();
 
     /**
      * Afficher un projet à partir de son id<br>

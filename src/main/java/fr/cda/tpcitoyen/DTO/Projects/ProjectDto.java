@@ -1,11 +1,10 @@
-package fr.cda.tpcitoyen.DTO.Users;
+package fr.cda.tpcitoyen.DTO.Projects;
 
+import fr.cda.tpcitoyen.DTO.Users.UserDto;
 import lombok.Data;
 
-import java.util.List;
-
 @Data
-public class ProjectDtoJointure {
+public class ProjectDto {
 
     private Integer id;
 
@@ -18,8 +17,4 @@ public class ProjectDtoJointure {
     private boolean isStatutorily;
 
     private UserDto userDto;
-
-    private List<DiscussionDto> discussionsList;
-
-    private List<VoteDto> votesList;
 }

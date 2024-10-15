@@ -1,7 +1,5 @@
 package fr.cda.tpcitoyen.Services.impl;
 
-import fr.cda.tpcitoyen.DTO.Users.ProjectDto;
-import fr.cda.tpcitoyen.DTO.Users.ProjectDtoJointure;
 import fr.cda.tpcitoyen.Entities.Project;
 import fr.cda.tpcitoyen.Repositories.ProjectRepository;
 import fr.cda.tpcitoyen.Services.ProjectService;
@@ -10,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -18,8 +17,27 @@ public class ProjectServiceImpl implements ProjectService {
     private final ProjectRepository projectRepository;
 
     @Override
-    public List<Project> getProjects() {
-        return projectRepository.findAll();
+    public List<Project> getProjectsValidated() {
+        List<Project> list = projectRepository.findAll();
+        List<Project> listOK = new ArrayList<>();
+        for (Project project : list) {
+            if (project.isValid() == true) {
+                listOK.add(project);
+            }
+        }
+        return listOK;
+    }
+
+    @Override
+    public List<Project> getProjectsToValidate() {
+        List<Project> list = projectRepository.findAll();
+        List<Project> listOK = new ArrayList<>();
+        for (Project project : list) {
+            if (project.isValid() == false) {
+                listOK.add(project);
+            }
+        }
+        return listOK;
     }
 
     @Override
