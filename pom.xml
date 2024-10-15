@@ -93,7 +93,7 @@
     </dependencies>
 
     <build>
-        <finalName>mon-appli</finalName> <!-- Cela générera mon-appli.jar -->
+        <finalName>mon-appli</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
